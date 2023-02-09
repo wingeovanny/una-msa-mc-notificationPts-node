@@ -1,14 +1,31 @@
-import { ErrorCodes, ErrorObjectType } from '@deuna/node-shared-lib';
-import { Injectable } from '@nestjs/common';
-import { SERVICE_NAME } from '../../constants/common';
+import { TransactionDto } from './transaction.dto';
+import { publishToQueue } from '@deuna/node-shared-lib';
+import { Inject, Injectable } from '@nestjs/common';
+import { TRANSACCTION_PTS_RESULT } from '../../constants/common';
+import { ClientKafka } from '@nestjs/microservices';
 
-const errors: ErrorObjectType[] = [
-  {
-    code: ErrorCodes.USER_DOES_NOT_EXIST_CODE, // Dudas sobre que codigo se deberia enviar
-    reason: '',
-    source: SERVICE_NAME,
-    details: '',
-  },
-];
 @Injectable()
-export class NotificationService {}
+export class NotificationService {
+  constructor(
+    @Inject('KAFKA_CLIENT') private readonly kafkaClient: ClientKafka,
+  ) {}
+
+  async recordTransactionLog(
+    transactionLog: TransactionDto,
+  ): Promise<{ status: boolean; message: string }> {
+    try {
+      await publishToQueue(this.kafkaClient, {
+        topic: TRANSACCTION_PTS_RESULT,
+        value: { dataTrx: transactionLog },
+        headers: {
+          source: '@lxba/notificationMerchant',
+          timestamp: new Date().toISOString(),
+        },
+      });
+    } catch (error) {}
+    return {
+      status: true,
+      message: `This item has been registered ${transactionLog.idTransaction} `,
+    };
+  }
+}

@@ -11,6 +11,7 @@ import { ValidationPipe } from '@nestjs/common/pipes/validation.pipe';
 
 import { SERVICE_NAME } from './src/constants/common';
 import { NotificationServiceModule } from './src/notification-service.module';
+import { KAFKA_CLIENT_CONFIG } from './src/config/kafka';
 
 const logger = new Logger({ context: 'Notification Service' });
 
@@ -21,6 +22,7 @@ async function bootstrap() {
   }
   app.useGlobalPipes(new ValidationPipe());
   app.useLogger(app.get(Logger));
+  app.connectMicroservice(KAFKA_CLIENT_CONFIG);
 
   await app.startAllMicroservices();
   registerSwagger(app, SERVICE_NAME);
