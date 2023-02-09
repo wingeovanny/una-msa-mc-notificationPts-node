@@ -55,7 +55,7 @@ export class NotificationController {
   }
 
   @EventPattern(TRANSACCTION_PTS_RESULT)
-  public hearLogTransaction(@Payload() payload: any) {
+  public hearLogTransaction(@Payload() payload: TransactionDto) {
     this.logger.log(payload, Controller.name);
   }
 }

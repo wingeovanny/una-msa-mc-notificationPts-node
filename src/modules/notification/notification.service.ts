@@ -25,7 +25,7 @@ export class NotificationService {
     } catch (error) {}
     return {
       status: true,
-      message: `This item has been registered ${transactionLog.idTransaction} `,
+      message: `This item has been registered ${transactionLog.data} `,
     };
   }
 }
