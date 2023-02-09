@@ -14,6 +14,7 @@ import { INVALID_PAYLOAD_ERROR } from '@deuna/node-shared-lib';
 import { NotificationService } from './notification.service';
 import { ErrorCustomizer } from '../../utils/customize-error';
 import { ClientKafka, EventPattern, Payload } from '@nestjs/microservices';
+import { TRANSACCTION_PTS_RESULT } from '../../constants/common';
 
 @ApiTags(SERVICE_NAME)
 @Controller('notificationtrx')
