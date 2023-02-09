@@ -22,6 +22,7 @@ export class NotificationService {
           timestamp: new Date().toISOString(),
         },
       });
+      console.log('PAso', publishToQueue);
     } catch (error) {}
     return {
       status: true,

@@ -17,7 +17,7 @@ export const KAFKA_CLIENT_CONFIG: KafkaOptions = {
         : {}),
     },
     consumer: {
-      groupId: 'transaction-merchant-group',
+      groupId: 'notification-merchant-group',
     },
   },
 };

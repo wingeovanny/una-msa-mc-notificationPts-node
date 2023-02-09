@@ -13,12 +13,14 @@ import { Logger } from '@deuna/node-logger-lib';
 import { INVALID_PAYLOAD_ERROR } from '@deuna/node-shared-lib';
 import { NotificationService } from './notification.service';
 import { ErrorCustomizer } from '../../utils/customize-error';
-import { ClientKafka } from '@nestjs/microservices';
+import { ClientKafka, EventPattern, Payload } from '@nestjs/microservices';
 
 @ApiTags(SERVICE_NAME)
 @Controller('notificationtrx')
 export class NotificationController {
   constructor(
+    @Inject('KAFKA_CLIENT')
+    private readonly kafkaClient: ClientKafka,
     private readonly notificationService: NotificationService,
     private logger: Logger,
     private errorCustomizer: ErrorCustomizer,
@@ -49,5 +51,10 @@ export class NotificationController {
     } catch (err) {
       throw this.errorCustomizer.customizeError(err, null, null);
     }
+  }
+
+  @EventPattern(TRANSACCTION_PTS_RESULT)
+  public hearLogTransaction(@Payload() payload: any) {
+    this.logger.log(payload, Controller.name);
   }
 }
