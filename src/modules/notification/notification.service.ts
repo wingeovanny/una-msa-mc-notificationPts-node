@@ -1,18 +1,20 @@
 import { TransactionDto } from './transaction.dto';
 import { publishToQueue } from '@deuna/node-shared-lib';
 import { Inject, Injectable } from '@nestjs/common';
-import { TRANSACCTION_PTS_RESULT } from '../../constants/common';
+
 import { ClientKafka } from '@nestjs/microservices';
+import { TRANSACCTION_PTS_RESULT } from '../../constants/common';
+import { Logger } from '@deuna/node-logger-lib';
 
 @Injectable()
 export class NotificationService {
   constructor(
     @Inject('KAFKA_CLIENT') private readonly kafkaClient: ClientKafka,
+    private readonly logger: Logger,
   ) {}
 
-  async recordTransactionLog(
-    transactionLog: TransactionDto,
-  ): Promise<{ status: boolean; message: string }> {
+  async recordTransactionLog(transactionLog: TransactionDto): Promise<void> {
+    this.logger.log(`Writing in the ${TRANSACCTION_PTS_RESULT} topic`);
     try {
       await publishToQueue(this.kafkaClient, {
         topic: TRANSACCTION_PTS_RESULT,
@@ -23,9 +25,5 @@ export class NotificationService {
         },
       });
     } catch (error) {}
-    return {
-      status: true,
-      message: `This item has been registered ${transactionLog.data} `,
-    };
   }
 }

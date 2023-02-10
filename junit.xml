@@ -1,53 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuites name="jest tests" tests="3" failures="2" errors="0" time="3.592">
-  <testsuite name="Autorizer Service health controller" errors="0" failures="0" skipped="0" timestamp="2023-02-09T21:53:05" time="2.101" tests="1">
-    <testcase classname="Autorizer Service health controller should return that the service is healthy" name="Autorizer Service health controller should return that the service is healthy" time="0.001">
+<testsuites name="jest tests" tests="6" failures="0" errors="0" time="3.473">
+  <testsuite name="Autorizer Service health controller" errors="0" failures="0" skipped="0" timestamp="2023-02-10T06:12:26" time="2.014" tests="1">
+    <testcase classname="Autorizer Service health controller should return that the service is healthy" name="Autorizer Service health controller should return that the service is healthy" time="0">
     </testcase>
   </testsuite>
-  <testsuite name="Notification Service" errors="0" failures="1" skipped="0" timestamp="2023-02-09T21:53:05" time="2.882" tests="1">
-    <testcase classname="Notification Service should be defined" name="Notification Service should be defined" time="0.006">
-      <failure>Error: Nest can&apos;t resolve dependencies of the NotificationService (?). Please make sure that the argument KAFKA_CLIENT at index [0] is available in the RootTestModule context.
-
-Potential solutions:
-- If KAFKA_CLIENT is a provider, is it part of the current RootTestModule?
-- If KAFKA_CLIENT is exported from a separate @Module, is that module imported within RootTestModule?
-  @Module({
-    imports: [ /* the Module containing KAFKA_CLIENT */ ]
-  })
-
-    at TestingInjector.lookupComponentInParentModules (/Users/ebucay/Documents/DevUna/Merchant/Estructura Basica/una-msa-mc-notificationPts-node/node_modules/@nestjs/core/injector/injector.js:231:19)
-    at processTicksAndRejections (node:internal/process/task_queues:95:5)
-    at TestingInjector.resolveComponentInstance (/Users/ebucay/Documents/DevUna/Merchant/Estructura Basica/una-msa-mc-notificationPts-node/node_modules/@nestjs/core/injector/injector.js:184:33)
-    at TestingInjector.resolveComponentInstance (/Users/ebucay/Documents/DevUna/Merchant/Estructura Basica/una-msa-mc-notificationPts-node/node_modules/@nestjs/testing/testing-injector.js:16:45)
-    at resolveParam (/Users/ebucay/Documents/DevUna/Merchant/Estructura Basica/una-msa-mc-notificationPts-node/node_modules/@nestjs/core/injector/injector.js:106:38)
-    at async Promise.all (index 0)
-    at TestingInjector.resolveConstructorParams (/Users/ebucay/Documents/DevUna/Merchant/Estructura Basica/una-msa-mc-notificationPts-node/node_modules/@nestjs/core/injector/injector.js:121:27)
-    at TestingInjector.loadInstance (/Users/ebucay/Documents/DevUna/Merchant/Estructura Basica/una-msa-mc-notificationPts-node/node_modules/@nestjs/core/injector/injector.js:52:9)
-    at TestingInjector.loadProvider (/Users/ebucay/Documents/DevUna/Merchant/Estructura Basica/una-msa-mc-notificationPts-node/node_modules/@nestjs/core/injector/injector.js:74:9)
-    at async Promise.all (index 3)</failure>
+  <testsuite name="Notification Service" errors="0" failures="0" skipped="0" timestamp="2023-02-10T06:12:26" time="2.763" tests="2">
+    <testcase classname="Notification Service should be defined" name="Notification Service should be defined" time="0.007">
+    </testcase>
+    <testcase classname="Notification Service Register record log transaccion given the dynamic data when the schema is correct then it should write to kafka " name="Notification Service Register record log transaccion given the dynamic data when the schema is correct then it should write to kafka " time="0.003">
     </testcase>
   </testsuite>
-  <testsuite name="NotificationController" errors="0" failures="1" skipped="0" timestamp="2023-02-09T21:53:05" time="2.885" tests="1">
-    <testcase classname="NotificationController should be defined" name="NotificationController should be defined" time="0.006">
-      <failure>Error: Nest can&apos;t resolve dependencies of the NotificationController (?, NotificationService, Logger, ErrorCustomizer). Please make sure that the argument KAFKA_CLIENT at index [0] is available in the RootTestModule context.
-
-Potential solutions:
-- If KAFKA_CLIENT is a provider, is it part of the current RootTestModule?
-- If KAFKA_CLIENT is exported from a separate @Module, is that module imported within RootTestModule?
-  @Module({
-    imports: [ /* the Module containing KAFKA_CLIENT */ ]
-  })
-
-    at TestingInjector.lookupComponentInParentModules (/Users/ebucay/Documents/DevUna/Merchant/Estructura Basica/una-msa-mc-notificationPts-node/node_modules/@nestjs/core/injector/injector.js:231:19)
-    at processTicksAndRejections (node:internal/process/task_queues:95:5)
-    at TestingInjector.resolveComponentInstance (/Users/ebucay/Documents/DevUna/Merchant/Estructura Basica/una-msa-mc-notificationPts-node/node_modules/@nestjs/core/injector/injector.js:184:33)
-    at TestingInjector.resolveComponentInstance (/Users/ebucay/Documents/DevUna/Merchant/Estructura Basica/una-msa-mc-notificationPts-node/node_modules/@nestjs/testing/testing-injector.js:16:45)
-    at resolveParam (/Users/ebucay/Documents/DevUna/Merchant/Estructura Basica/una-msa-mc-notificationPts-node/node_modules/@nestjs/core/injector/injector.js:106:38)
-    at async Promise.all (index 0)
-    at TestingInjector.resolveConstructorParams (/Users/ebucay/Documents/DevUna/Merchant/Estructura Basica/una-msa-mc-notificationPts-node/node_modules/@nestjs/core/injector/injector.js:121:27)
-    at TestingInjector.loadInstance (/Users/ebucay/Documents/DevUna/Merchant/Estructura Basica/una-msa-mc-notificationPts-node/node_modules/@nestjs/core/injector/injector.js:52:9)
-    at TestingInjector.loadController (/Users/ebucay/Documents/DevUna/Merchant/Estructura Basica/una-msa-mc-notificationPts-node/node_modules/@nestjs/core/injector/injector.js:65:9)
-    at async Promise.all (index 0)</failure>
+  <testsuite name="Notification Controller" errors="0" failures="0" skipped="0" timestamp="2023-02-10T06:12:26" time="2.769" tests="3">
+    <testcase classname="Notification Controller should be defined" name="Notification Controller should be defined" time="0.008">
+    </testcase>
+    <testcase classname="Notification Controller recordTransactionLog should return a message indicating that the event was transmitted" name="Notification Controller recordTransactionLog should return a message indicating that the event was transmitted" time="0.003">
+    </testcase>
+    <testcase classname="Notification Controller recordTransactionLog should throw an error when service do not respond correctly" name="Notification Controller recordTransactionLog should throw an error when service do not respond correctly" time="0.003">
     </testcase>
   </testsuite>
 </testsuites>

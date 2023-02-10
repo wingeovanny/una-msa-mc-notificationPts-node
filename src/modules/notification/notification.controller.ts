@@ -1,6 +1,6 @@
 import { TransactionDto } from './transaction.dto';
 import { Body, Controller, Inject, Post } from '@nestjs/common';
-import { SERVICE_NAME } from '../../constants/common';
+import { KAFKA_NAME, SERVICE_NAME, TRANSACCTION_PTS_RESULT } from '../../constants/common';
 import {
   ApiBadRequestResponse,
   ApiBody,
@@ -14,13 +14,12 @@ import { INVALID_PAYLOAD_ERROR } from '@deuna/node-shared-lib';
 import { NotificationService } from './notification.service';
 import { ErrorCustomizer } from '../../utils/customize-error';
 import { ClientKafka, EventPattern, Payload } from '@nestjs/microservices';
-import { TRANSACCTION_PTS_RESULT } from '../../constants/common';
 
 @ApiTags(SERVICE_NAME)
 @Controller('notificationtrx')
 export class NotificationController {
   constructor(
-    @Inject('KAFKA_CLIENT')
+    @Inject(KAFKA_NAME)
     private readonly kafkaClient: ClientKafka,
     private readonly notificationService: NotificationService,
     private logger: Logger,
@@ -48,14 +47,18 @@ export class NotificationController {
   ): Promise<{ status: boolean; message: string }> {
     try {
       this.logger.log(`Transmited transaction`, null);
-      return this.notificationService.recordTransactionLog(transactionDto);
+      await this.notificationService.recordTransactionLog(transactionDto);
+      return {
+        status: true,
+        message: `This item has been registered`,
+      };
     } catch (err) {
       throw this.errorCustomizer.customizeError(err, null, null);
     }
   }
-
+  /*
   @EventPattern(TRANSACCTION_PTS_RESULT)
   public hearLogTransaction(@Payload() payload: TransactionDto) {
     this.logger.log(payload, Controller.name);
-  }
+  }*/
 }
