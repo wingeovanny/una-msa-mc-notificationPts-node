@@ -1,22 +1,18 @@
 // call initially to setup app env vars
-import {
-  setupEnvConfig,
-  AuditInterceptor,
-  registerSwagger,
-} from '@deuna/node-shared-lib';
-setupEnvConfig();
+import { setupEnvironment } from '@deuna/node-environments-lib';
+setupEnvironment();
+import { AuditInterceptor, registerSwagger } from '@deuna/node-shared-lib';
 import { NestFactory } from '@nestjs/core';
 import { Logger } from '@deuna/node-logger-lib';
 import { ValidationPipe } from '@nestjs/common/pipes/validation.pipe';
-
 import { SERVICE_NAME } from './src/constants/common';
-import { NotificationServiceModule } from './src/notification-service.module';
 import { KAFKA_CLIENT_CONFIG } from './src/config/kafka';
+import { WebHookTransactionServiceModule } from './src/webhook-transaction-service.module';
 
-const logger = new Logger({ context: 'Notification Service' });
+const logger = new Logger({ context: 'Notification-trx-pts Service' });
 
 async function bootstrap() {
-  const app = await NestFactory.create(NotificationServiceModule);
+  const app = await NestFactory.create(WebHookTransactionServiceModule);
   if (process.env.ENABLE_AUDIT === 'true') {
     app.useGlobalInterceptors(new AuditInterceptor(SERVICE_NAME));
   }
@@ -26,9 +22,8 @@ async function bootstrap() {
 
   await app.startAllMicroservices();
   registerSwagger(app, SERVICE_NAME);
-  console.log(process.env.ENABLE_AUDIT);
 
-  await app.listen(process.env.NOTIFICATION_SERVICE_PORT);
+  await app.listen(process.env.SERVICE_PORT);
   logger.log(`Microservice is listening on: ${await app.getUrl()}`);
 }
 bootstrap();

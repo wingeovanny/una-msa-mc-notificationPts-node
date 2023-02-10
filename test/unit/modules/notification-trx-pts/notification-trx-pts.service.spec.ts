@@ -2,17 +2,17 @@ import { Logger } from '@deuna/node-logger-lib';
 import { Test, TestingModule } from '@nestjs/testing';
 import { of } from 'rxjs';
 import { KAFKA_NAME } from '../../../../src/constants/common';
-import { NotificationService } from '../../../../src/modules/notification/notification.service';
+import { NotificationTrxPtsService } from '../../../../src/modules/notification-trx-pts/notification-trx-pts.service';
 import { mockLogTransactionDto } from '../../../mock-data';
 
-describe('Notification Service', () => {
-  let service: NotificationService;
+describe('Notification-trx-pts Service', () => {
+  let service: NotificationTrxPtsService;
   const mockEmitKafka = jest.fn(() => of(true));
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
-        NotificationService,
+        NotificationTrxPtsService,
         {
           provide: KAFKA_NAME,
           useFactory: () => {
@@ -30,7 +30,7 @@ describe('Notification Service', () => {
       ],
     }).compile();
 
-    service = module.get<NotificationService>(NotificationService);
+    service = module.get<NotificationTrxPtsService>(NotificationTrxPtsService);
   });
 
   it('should be defined', () => {

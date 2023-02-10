@@ -7,7 +7,7 @@ import { TRANSACCTION_PTS_RESULT } from '../../constants/common';
 import { Logger } from '@deuna/node-logger-lib';
 
 @Injectable()
-export class NotificationService {
+export class NotificationTrxPtsService {
   constructor(
     @Inject('KAFKA_CLIENT') private readonly kafkaClient: ClientKafka,
     private readonly logger: Logger,

@@ -2,8 +2,8 @@ import { Module } from '@nestjs/common';
 
 import { LoggerModule } from '@deuna/node-logger-lib';
 import { ErrorCustomizer } from '../../utils/customize-error';
-import { NotificationService } from './notification.service';
-import { NotificationController } from './notification.controller';
+import { NotificationTrxPtsService } from './notification-trx-pts.service';
+import { NotificationTrxPtsController } from './notification-trx-pts.controller';
 import { KAFKA_CLIENT_CONFIG } from '../../config/kafka';
 import { ClientsModule } from '@nestjs/microservices';
 
@@ -17,7 +17,7 @@ import { ClientsModule } from '@nestjs/microservices';
       },
     ]),
   ],
-  controllers: [NotificationController],
-  providers: [NotificationService, ErrorCustomizer],
+  controllers: [NotificationTrxPtsController],
+  providers: [NotificationTrxPtsService, ErrorCustomizer],
 })
-export class TransactionModule {}
+export class NotificationTrxPtsModule {}

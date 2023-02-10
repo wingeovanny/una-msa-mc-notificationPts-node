@@ -4,7 +4,7 @@ import configuration from './config/service-configuration';
 import { MetaServiceModule } from './modules/meta-service/meta-service.module';
 import { LoggerModule } from '@deuna/node-logger-lib';
 import { ALL_EXCEPTION_FILTERS_FOR_PROVIDER } from '@deuna/node-shared-lib';
-import { TransactionModule } from './modules/notification/notification.module';
+import { NotificationTrxPtsModule } from './modules/notification-trx-pts/notification-trx-pts.module';
 
 @Module({
   imports: [
@@ -14,9 +14,9 @@ import { TransactionModule } from './modules/notification/notification.module';
       load: [configuration],
     }),
     MetaServiceModule,
-    TransactionModule,
-    LoggerModule.forRoot({ context: 'Notification Service' }),
+    NotificationTrxPtsModule,
+    LoggerModule.forRoot({ context: 'WebHook Transaction Service' }),
   ],
   providers: [...ALL_EXCEPTION_FILTERS_FOR_PROVIDER],
 })
-export class NotificationServiceModule {}
+export class WebHookTransactionServiceModule {}

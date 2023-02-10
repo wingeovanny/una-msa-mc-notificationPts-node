@@ -2,11 +2,10 @@ dist/
 node_modules/
 
 
-.env
-dev.env
 
 # OS
 *.DS_Store
+
 
 
 # Tests
@@ -30,3 +29,4 @@ dev.env
 *.sublime-workspace
 
 docker-compose-local.yml
+.env.local

@@ -1,11 +1,9 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { Logger } from '@deuna/node-logger-lib';
-import { NotificationService } from './../../../../src/modules/notification/notification.service';
-import { NotificationController } from '../../../../src/modules/notification/notification.controller';
+import { NotificationTrxPtsService } from '../../../../src/modules/notification-trx-pts/notification-trx-pts.service';
+import { NotificationTrxPtsController } from '../../../../src/modules/notification-trx-pts/notification-trx-pts.controller';
 import { ErrorCustomizer } from '../../../../src/utils/customize-error';
 
-import { KAFKA_NAME } from '../../../../src/constants/common';
-import { of } from 'rxjs';
 import { MaybeMockedDeep } from 'ts-jest/dist/utils/testing';
 import {
   mockLogTransactionDto,
@@ -13,18 +11,17 @@ import {
 } from '../../../mock-data';
 import { DefaultErrorException } from '@deuna/node-shared-lib';
 
-describe('Notification Controller', () => {
-  let controller: NotificationController;
+describe('Notification-trx-pts Controller', () => {
+  let controller: NotificationTrxPtsController;
   let customizeError: jest.SpyInstance;
-  let notificationService: MaybeMockedDeep<NotificationService>;
-  const mockEmit = jest.fn(() => of({}));
+  let notificationService: MaybeMockedDeep<NotificationTrxPtsService>;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      controllers: [NotificationController],
+      controllers: [NotificationTrxPtsController],
       providers: [
         {
-          provide: NotificationService,
+          provide: NotificationTrxPtsService,
           useFactory: () => ({
             recordTransactionLog: jest.fn(() => 1),
           }),
@@ -37,19 +34,15 @@ describe('Notification Controller', () => {
             debug: jest.fn(),
           }),
         },
-        {
-          provide: KAFKA_NAME,
-          useFactory: () => {
-            emit: mockEmit;
-          },
-        },
         ErrorCustomizer,
       ],
     }).compile();
 
-    controller = module.get<NotificationController>(NotificationController);
+    controller = module.get<NotificationTrxPtsController>(
+      NotificationTrxPtsController,
+    );
     customizeError = jest.spyOn(module.get(ErrorCustomizer), 'customizeError');
-    notificationService = module.get(NotificationService);
+    notificationService = module.get(NotificationTrxPtsService);
   });
 
   it('should be defined', () => {

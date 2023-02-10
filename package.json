@@ -7,6 +7,8 @@
   "scripts": {
     "test": "jest --config ./jest.config.js --collectCoverage --coverageDirectory=\"./coverage\" --ci --reporters=default --reporters=jest-junit --watchAll=false",
     "start": "nest start",
+    "start:dev": "LOCAL=true nest start",
+    "start:dev:windows": "set LOCAL=true && nest start",
     "test:coverage": "jest --coverage  --forceExit",
     "typeorm": "node --conditions=typescript -r ts-node/register node_modules/typeorm/cli.js",
     "typeorm:migrate": "npm run typeorm -- migration:run -c notificationMerchant",
@@ -16,6 +18,7 @@
     "build": "nest build"
   },
   "dependencies": {
+    "@deuna/node-environments-lib": "^0.0.274074-develop",
     "@deuna/node-logger-lib": "^0.0.265179-dev",
     "@deuna/node-shared-lib": "^0.0.265577-master",
     "@golevelup/ts-jest": "^0.3.2",

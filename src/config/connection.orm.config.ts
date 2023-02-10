@@ -1,28 +1,19 @@
 import { PostgresConnectionOptions } from 'typeorm/driver/postgres/PostgresConnectionOptions';
 import type { TypeOrmModuleOptions } from '@nestjs/typeorm';
-import * as fs from 'fs';
-import * as path from 'path';
-import { setupEnvConfig } from '@deuna/node-shared-lib';
-setupEnvConfig();
-
-const tsPath = path.resolve(__dirname, `../../../../qrTransactionToken`);
-const jsPath = path.resolve(__dirname, `../../../../../qrTransactionToken`);
-const dbTokenPath = fs.existsSync(tsPath) ? tsPath : jsPath;
+import { setupEnvironment } from '@deuna/node-environments-lib';
+setupEnvironment(true);
 
 export type ConnectionOptions = PostgresConnectionOptions &
   TypeOrmModuleOptions & { seeds: string[] };
 
 export const notificationConfig = (): ConnectionOptions => ({
   type: 'postgres',
-  name: 'merchant-notification',
+  name: 'notification-trx-pts-merchant',
   host: process.env.TYPEORM_HOST,
   port: parseInt(process.env.TYPEORM_PORT, 10),
-  username: process.env.TYPEORM_NOTIFICATION_USERNAME,
-  password:
-    process.env.CLOUD_SERVICE_PROVIDER?.toUpperCase() === 'AWS'
-      ? fs.readFileSync(dbTokenPath).toString()
-      : process.env.TYPEORM_NOTIFICATION_PASSWORD,
-  database: process.env.TYPEORM_NOTIFICATION_DATABASE,
+  username: process.env.TYPEORM_USERNAME,
+  password: process.env.TYPEORM_PASSWORD,
+  database: process.env.TYPEORM_DATABASE,
   synchronize: false,
   logging: process.env.NODE_ENV === 'development' ? true : false,
   entities: [__dirname + '/../db/**/*.entity.[tj]s'],
